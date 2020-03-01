@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Your Order</h1>
-    <p>Base {{ base.id }}</p>
+    <p>{{ getBase.name }}</p>
     <ul>
-      <li v-for="(topping, i) in toppings.ids" :key="i">
-        <p>Topping {{ topping }}</p>
+      <li v-for="(topping, i) in getToppings.names" :key="i">
+        <p>{{ topping }}</p>
       </li>
     </ul>
     <button v-on:click="restart">Restart</button>
@@ -21,8 +21,8 @@ export default {
   name: 'Final',
   computed: {
     ...mapGetters([
-      'base',
-      'toppings',
+      'getBase',
+      'getToppings',
     ]),
   },
   methods: {

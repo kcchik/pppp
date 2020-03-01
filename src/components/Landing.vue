@@ -3,7 +3,7 @@
     <div>
       <span>Shop</span>
       <select v-model.number="shop">
-        <option v-for="option in shops" v-bind:key ="option.id" v-bind:value="option.id">
+        <option v-for="option in getShops" v-bind:key ="option.id" v-bind:value="option.id">
           {{ option.name }}
         </option>
       </select>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 const base = {
   rerolls: 0,
@@ -49,18 +49,29 @@ export default {
   name: 'Landing',
   data() {
     return {
-      shop: 0,
       base,
       toppings,
     };
   },
   computed: {
+    shop: {
+      get() {
+        return this.getShop;
+      },
+      set(shop) {
+        this.setShop(shop);
+      },
+    },
     ...mapGetters([
-      'shops',
+      'getShop',
+      'getShops',
     ]),
   },
   methods: {
     start,
+    ...mapMutations([
+      'setShop',
+    ]),
     ...mapActions([
       'setParams',
     ]),

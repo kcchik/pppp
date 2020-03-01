@@ -2,29 +2,37 @@ const Koa = require('koa');
 const Router = require('@koa/router');
 const cors = require('@koa/cors');
 const serve = require('koa-static');
+const pg = require('pg');
 
 const app = new Koa();
 const router = new Router();
+const client = new pg.Client();
+
+async function database() {
+  await client.connect();
+};
+database();
 
 router
-  .get('/stores', (ctx) => {
-    ctx.body = [
-      { id: 1, name: 'Cocos' },
-      { id: 2, name: 'Chatime' },
-      { id: 3, name: 'Sharetea' },
-    ];
+  .get('/stores', async (ctx) => {
+    const res = await client.query('SELECT * FROM shops');
+    ctx.body = res.rows.map((shop) => ({ id: shop.id, name: shop.name }));
   })
-  .get('/stores/:id', (ctx) => {
+  .get('/stores/:id', async (ctx) => {
+    const base = await client.query('SELECT COUNT(*) FROM bases WHERE shop_id = $1', [ctx.params.id]);
+    const toppings = await client.query('SELECT COUNT(*) FROM toppings WHERE shop_id = $1', [ctx.params.id]);
     ctx.body = {
-      base: 50,
-      toppings: 10,
+      base: base.rows[0].count,
+      toppings: toppings.rows[0].count,
     };
   })
-  .get('/stores/:store_id/base/:id', (ctx) => {
-    ctx.body = 'Jasmine Green Milk Tea';
+  .get('/stores/:shop_id/base/:id', async (ctx) => {
+    const res = await client.query('SELECT name FROM bases WHERE id = $1 AND shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
+    ctx.body = { name: res.rows[0].name } ;
   })
-  .get('/stores/:store_id/toppings/:id', (ctx) => {
-    ctx.body = 'Pearls';
+  .get('/stores/:shop_id/toppings/:id', async (ctx) => {
+    const res = await client.query('SELECT name FROM toppings WHERE id = $1 AND shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
+    ctx.body = { name: res.rows[0].name };
   });
 
 app

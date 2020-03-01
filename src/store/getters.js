@@ -1,14 +1,17 @@
 export default {
-  shops(state) {
+  getShop(state) {
+    return state.shop;
+  },
+  getShops(state) {
     return state.shops;
   },
-  base(state) {
+  getBase(state) {
     return state.base;
   },
-  toppings(state) {
+  getToppings(state) {
     return state.toppings;
   },
-  rolled(state) {
+  getToppingsRolled(state) {
     let count = 0;
     for (let i = 0; i < state.toppings.count; i += 1) {
       if (state.toppings.ids[i] !== null) {

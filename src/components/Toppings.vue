@@ -2,14 +2,14 @@
   <div>
     <h1>Toppings</h1>
     <ul>
-      <li v-for="(topping, i) in toppings.ids" :key="i">
-        <p>{{ topping }}</p>
+      <li v-for="(topping, i) in getToppings.ids" :key="i">
+        <p>{{ getToppings.names[i] }}</p>
         <button v-on:click="rollTopping(i)" :disabled="buttonDisabled(topping)">
           {{ buttonContent(topping) }}
         </button>
       </li>
     </ul>
-    <button v-on:click="next" :disabled="rolled != toppings.count">
+    <button v-on:click="next" :disabled="getToppingsRolled != getToppings.count">
       Next
     </button>
   </div>
@@ -19,15 +19,15 @@
 import { mapGetters, mapActions } from 'vuex';
 
 function buttonDisabled(topping) {
-  return this.toppings.rerolls === -(this.toppings.count)
-    || (this.rolled !== this.toppings.count && topping !== null);
+  return this.getToppings.rerolls === -(this.getToppings.count)
+    || (this.getToppingsRolled !== this.getToppings.count && topping !== null);
 }
 
 function buttonContent(topping) {
   if (topping === null) {
     return 'Roll';
   }
-  return `Reroll (${this.toppings.rerolls + this.rolled})`;
+  return `Reroll (${this.getToppings.rerolls + this.getToppingsRolled})`;
 }
 
 function next() {
@@ -38,8 +38,8 @@ export default {
   name: 'Toppings',
   computed: {
     ...mapGetters([
-      'toppings',
-      'rolled',
+      'getToppings',
+      'getToppingsRolled',
     ]),
   },
   methods: {

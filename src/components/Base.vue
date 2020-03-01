@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Base</h1>
-    <p>{{ base.id }}</p>
-    <button v-on:click="rollBase" :disabled="base.rerolls === -1">
+    <p>{{ getBase.name }}</p>
+    <button v-on:click="rollBase" :disabled="getBase.rerolls === -1">
       {{ buttonContent() }}
     </button>
-    <button v-on:click="next" :disabled="base.id === null">Next</button>
+    <button v-on:click="next" :disabled="getBase.id === null">Next</button>
   </div>
 </template>
 
@@ -13,14 +13,14 @@
 import { mapGetters, mapActions } from 'vuex';
 
 function buttonContent() {
-  if (this.base.id === null) {
+  if (this.getBase.id === null) {
     return 'Roll';
   }
-  return `Reroll (${this.base.rerolls + 1})`;
+  return `Reroll (${this.getBase.rerolls + 1})`;
 }
 
 function next() {
-  if (this.toppings.count > 0) {
+  if (this.getToppings.count > 0) {
     this.$emit('swap', 'toppings');
   } else {
     this.$emit('swap', 'final');
@@ -31,8 +31,8 @@ export default {
   name: 'Base',
   computed: {
     ...mapGetters([
-      'base',
-      'toppings',
+      'getBase',
+      'getToppings',
     ]),
   },
   methods: {
