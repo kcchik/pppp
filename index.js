@@ -6,7 +6,10 @@ const pg = require('pg');
 
 const app = new Koa();
 const router = new Router();
-const client = new pg.Client();
+const client = new pg.Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
 
 async function database() {
   await client.connect();
