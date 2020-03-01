@@ -31,7 +31,7 @@ export default {
   },
   async rollTopping({ commit, state }, i) {
     commit('setToppingsRerolls', state.toppings.rerolls - 1);
-    const id = random(state.base.max);
+    const id = random(state.toppings.max);
     commit('setToppingsId', { i, id });
     let res = await fetch(`stores/${state.shop}/toppings/${id}`);
     res = await res.json();
