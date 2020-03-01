@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <component :is="page"  @swap="swap" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Landing from './components/Landing.vue';
+import Base from './components/Base.vue';
+import Toppings from './components/Toppings.vue';
+import Final from './components/Final.vue';
+
+function swap(page) {
+  switch (page) {
+    case 'base':
+      this.page = Base; break;
+    case 'toppings':
+      this.page = Toppings; break;
+    case 'final':
+      this.page = Final; break;
+    default:
+      this.page = Landing;
+  }
+}
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      page: Landing,
+    };
+  },
+  methods: {
+    swap,
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  font: 400 11px system-ui;
+  color: buttontext;
+  line-height: 2em;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 </style>
