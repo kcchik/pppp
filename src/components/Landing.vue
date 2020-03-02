@@ -1,25 +1,14 @@
 <template>
   <div>
-    <div>
-      <span>Shop</span>
-      <select v-model.number="shop">
-        <option v-for="option in getShops" v-bind:key ="option.id" v-bind:value="option.id">
-          {{ option.name }}
-        </option>
-      </select>
-    </div>
-    <div>
-      <span>Base Rerolls </span>
-      <input type="number" min="0" max="10" v-model.number="base.rerolls" />
-    </div>
-    <div>
-      <span>Toppings Amount </span>
-      <input type="number" min="0" max="10" v-model.number="toppings.count" />
-    </div>
-    <div>
-      <span>Toppings Rerolls </span>
-      <input type="number" min="0" max="10" v-model.number="toppings.rerolls" />
-    </div>
+    <select v-model.number="shop">
+      <option v-for="option in getShops" v-bind:key="option">
+        {{ option }}
+      </option>
+    </select>
+    <select v-model.number="count">
+      <option>1</option>
+      <option>2</option>
+    </select>
     <button v-on:click="start">Start</button>
   </div>
 </template>
@@ -27,32 +16,14 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 
-const base = {
-  rerolls: 0,
-};
-
-const toppings = {
-  count: 0,
-  rerolls: 0,
-};
-
 async function start() {
-  await this.setParams({
-    shop: this.shop,
-    base: this.base,
-    toppings: this.toppings,
-  });
+  await this.setBases(this.shop);
+  await this.setToppings(this.shop);
   this.$emit('swap', 'base');
 }
 
 export default {
   name: 'Landing',
-  data() {
-    return {
-      base,
-      toppings,
-    };
-  },
   computed: {
     shop: {
       get() {
@@ -62,18 +33,29 @@ export default {
         this.setShop(shop);
       },
     },
+    count: {
+      get() {
+        return this.getToppingsCount;
+      },
+      set(count) {
+        this.setToppingsCount(count);
+      },
+    },
     ...mapGetters([
       'getShop',
       'getShops',
+      'getToppingsCount',
     ]),
   },
   methods: {
     start,
     ...mapMutations([
       'setShop',
+      'setToppingsCount',
     ]),
     ...mapActions([
-      'setParams',
+      'setBases',
+      'setToppings',
     ]),
   },
 };

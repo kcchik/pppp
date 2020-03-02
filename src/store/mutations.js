@@ -1,41 +1,26 @@
 export default {
   setShop(state, shop) {
-    state.shop = shop;
+    state.shops.selected = shop;
   },
   setShops(state, shops) {
-    state.shops = shops;
+    state.shops.list = shops;
   },
-  setBaseMax(state, max) {
-    state.base.max = max;
+  setBase(state, base) {
+    state.bases.selected = base;
   },
-  setBaseId(state, id) {
-    state.base.id = id;
+  setBases(state, bases) {
+    state.bases.list = bases;
   },
-  setBaseName(state, name) {
-    state.base.name = name;
+  setTopping(state, topping) {
+    state.toppings.selected = topping;
   },
-  setBaseRerolls(state, rerolls) {
-    state.base.rerolls = rerolls;
+  addTopping(state, topping) {
+    state.toppings.selected.push(topping);
   },
-  setToppingsMax(state, max) {
-    state.toppings.max = max;
+  setToppings(state, toppings) {
+    state.toppings.list = toppings;
   },
   setToppingsCount(state, count) {
     state.toppings.count = count;
-  },
-  setToppingsIds(state, ids) {
-    state.toppings.ids = ids;
-  },
-  setToppingsNames(state, names) {
-    state.toppings.names = names;
-  },
-  setToppingsId(state, topping) {
-    state.toppings.ids.splice(topping.i, 1, topping.id);
-  },
-  setToppingsName(state, topping) {
-    state.toppings.names.splice(topping.i, 1, topping.name);
-  },
-  setToppingsRerolls(state, rerolls) {
-    state.toppings.rerolls = rerolls;
   },
 };

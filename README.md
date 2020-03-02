@@ -1,24 +1,23 @@
-# peepeepoopoo
+# PeePeePooPoo
+Bad idea
 
-## Project setup
-```
-yarn install
+### Installing
+```sh
+yarn
 ```
 
-### Compiles and hot-reloads for development
-```
+### Development
+```sh
+# Server
+yarn start
+
+# Client
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### Rules
+1. Select shop
+2. Roll 2 bases, pick 1
+3. Roll 2 toppings
+4. Display drink
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

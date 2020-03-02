@@ -1,32 +1,49 @@
 <template>
   <div>
     <h1>Your Order</h1>
-    <p>{{ getBase.name }}</p>
+    <p>{{ getBases[getBase] }}</p>
     <ul>
-      <li v-for="(topping, i) in getToppings.names" :key="i">
-        <p>{{ topping }}</p>
+      <li v-for="i in getTopping" :key="i">
+        <p>{{ getToppings[i] }}</p>
       </li>
     </ul>
+    <button v-on:click="reroll">Reroll</button>
     <button v-on:click="restart">Restart</button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+
+function reroll() {
+  this.setBase(null);
+  this.setTopping([]);
+  this.$emit('swap', 'base');
+}
 
 function restart() {
+  this.setBase(null);
+  this.setTopping([]);
   this.$emit('swap', 'landing');
 }
+
 export default {
   name: 'Final',
   computed: {
     ...mapGetters([
       'getBase',
+      'getBases',
+      'getTopping',
       'getToppings',
     ]),
   },
   methods: {
+    reroll,
     restart,
+    ...mapMutations([
+      'setBase',
+      'setTopping',
+    ]),
   },
 };
 </script>

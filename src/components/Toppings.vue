@@ -2,33 +2,17 @@
   <div>
     <h1>Toppings</h1>
     <ul>
-      <li v-for="(topping, i) in getToppings.ids" :key="i">
-        <p>{{ getToppings.names[i] }}</p>
-        <button v-on:click="rollTopping(i)" :disabled="buttonDisabled(topping)">
-          {{ buttonContent(topping) }}
-        </button>
+      <li v-for="i in getToppingsCount" :key="i">
+        <Spinner @set="addTopping" :items="getToppings" />
       </li>
     </ul>
-    <button v-on:click="next" :disabled="getToppingsRolled != getToppings.count">
-      Next
-    </button>
+    <button v-on:click="next">Next</button>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
-function buttonDisabled(topping) {
-  return this.getToppings.rerolls === -(this.getToppings.count)
-    || (this.getToppingsRolled !== this.getToppings.count && topping !== null);
-}
-
-function buttonContent(topping) {
-  if (topping === null) {
-    return 'Roll';
-  }
-  return `Reroll (${this.getToppings.rerolls + this.getToppingsRolled})`;
-}
+import { mapGetters, mapMutations } from 'vuex';
+import Spinner from './Spinner.vue';
 
 function next() {
   this.$emit('swap', 'final');
@@ -36,18 +20,19 @@ function next() {
 
 export default {
   name: 'Toppings',
+  components: {
+    Spinner,
+  },
   computed: {
     ...mapGetters([
       'getToppings',
-      'getToppingsRolled',
+      'getToppingsCount',
     ]),
   },
   methods: {
-    buttonDisabled,
-    buttonContent,
     next,
-    ...mapActions([
-      'rollTopping',
+    ...mapMutations([
+      'addTopping',
     ]),
   },
 };

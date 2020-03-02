@@ -19,7 +19,7 @@ database();
 router
   .get('/stores', async (ctx) => {
     const res = await client.query('SELECT * FROM shops');
-    ctx.body = res.rows.map((shop) => ({ id: shop.id, name: shop.name }));
+    ctx.body = res.rows;
   })
   .get('/stores/:id', async (ctx) => {
     const base = await client.query('SELECT COUNT(*) FROM bases WHERE shop_id = $1', [ctx.params.id]);
@@ -29,7 +29,11 @@ router
       toppings: toppings.rows[0].count,
     };
   })
-  .get('/stores/:shop_id/base/:id', async (ctx) => {
+  .get('/stores/:shop_id/bases', async (ctx) => {
+    const res = await client.query('SELECT name FROM bases WHERE shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
+    ctx.body = res.rows;
+  })
+  .get('/stores/:shop_id/bases/:id', async (ctx) => {
     const res = await client.query('SELECT name FROM bases WHERE id = $1 AND shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
     ctx.body = { name: res.rows[0].name } ;
   })

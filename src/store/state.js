@@ -1,21 +1,21 @@
-const base = {
-  id: null,
-  name: '',
-  max: 0,
-  rerolls: 0,
+const shops = {
+  selected: null,
+  list: [],
+};
+
+const bases = {
+  selected: null,
+  list: [],
 };
 
 const toppings = {
-  ids: [],
-  names: [],
-  max: 0,
-  count: 0,
-  rerolls: 0,
+  count: 2,
+  selected: [],
+  list: [],
 };
 
 export default {
-  shop: 1,
-  shops: [],
-  base,
+  shops,
+  bases,
   toppings,
 };

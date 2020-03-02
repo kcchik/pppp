@@ -1,23 +1,23 @@
 export default {
   getShop(state) {
-    return state.shop;
+    return state.shops.selected;
   },
   getShops(state) {
-    return state.shops;
+    return state.shops.list;
   },
   getBase(state) {
-    return state.base;
+    return state.bases.selected;
+  },
+  getBases(state) {
+    return state.bases.list;
+  },
+  getTopping(state) {
+    return state.toppings.selected;
   },
   getToppings(state) {
-    return state.toppings;
+    return state.toppings.list;
   },
-  getToppingsRolled(state) {
-    let count = 0;
-    for (let i = 0; i < state.toppings.count; i += 1) {
-      if (state.toppings.ids[i] !== null) {
-        count += 1;
-      }
-    }
-    return count;
+  getToppingsCount(state) {
+    return state.toppings.count;
   },
 };
