@@ -32,9 +32,9 @@ function animate(timestamp) {
   const remainingTime = Math.max(this.totalTime - activeTime, 0);
   const power = 2;
   const offset = (remainingTime ** power / this.totalTime ** power) * 2000;
-  const pos = -1 * Math.floor((offset + this.position) % (this.items.length * this.height));
+  const position = -1 * Math.floor((offset + this.position) % (this.items.length * this.height));
 
-  this.$refs.wrap.style.transform = `translateY(${pos}px)`;
+  this.$refs.wrap.style.transform = `translateY(${position}px)`;
 
   if (activeTime <= this.totalTime) {
     window.requestAnimationFrame(this.animate);
@@ -71,9 +71,7 @@ export default {
 .item {
   height: 180px;
   width: 200px;
-
   text-align: center;
-
   line-height: 180px;
 }
 </style>

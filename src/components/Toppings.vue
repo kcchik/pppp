@@ -6,7 +6,7 @@
         <Spinner @set="addTopping" :items="getToppings" />
       </li>
     </ul>
-    <button v-on:click="next">Next</button>
+    <button v-on:click="next" :disabled="getTopping.length < getToppingsCount">Next</button>
   </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getTopping',
       'getToppings',
       'getToppingsCount',
     ]),
