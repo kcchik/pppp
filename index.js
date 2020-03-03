@@ -18,28 +18,19 @@ database();
 
 router
   .get('/stores', async (ctx) => {
-    const res = await client.query('SELECT * FROM shops');
-    ctx.body = res.rows;
+    const res = await client.query('SELECT name FROM shops');
+    ctx.body = res.rows.map((row) => row.name);
+    // ctx.body = ['Cocos', 'Chatime'];
   })
-  .get('/stores/:id', async (ctx) => {
-    const base = await client.query('SELECT COUNT(*) FROM bases WHERE shop_id = $1', [ctx.params.id]);
-    const toppings = await client.query('SELECT COUNT(*) FROM toppings WHERE shop_id = $1', [ctx.params.id]);
-    ctx.body = {
-      base: base.rows[0].count,
-      toppings: toppings.rows[0].count,
-    };
+  .get('/stores/:id/bases', async (ctx) => {
+    const res = await client.query('SELECT name FROM bases WHERE shop_id = $1', [ctx.params.id]);
+    ctx.body = res.rows.map((row) => row.name);
+    // ctx.body = ['Jasmine Green Milk Tea', 'Two Ladies', 'Three Guys', 'Black Tea'];
   })
-  .get('/stores/:shop_id/bases', async (ctx) => {
-    const res = await client.query('SELECT name FROM bases WHERE shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
-    ctx.body = res.rows;
-  })
-  .get('/stores/:shop_id/bases/:id', async (ctx) => {
-    const res = await client.query('SELECT name FROM bases WHERE id = $1 AND shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
-    ctx.body = { name: res.rows[0].name } ;
-  })
-  .get('/stores/:shop_id/toppings/:id', async (ctx) => {
-    const res = await client.query('SELECT name FROM toppings WHERE id = $1 AND shop_id = $2', [ctx.params.id, ctx.params.shop_id]);
-    ctx.body = { name: res.rows[0].name };
+  .get('/stores/:id/toppings', async (ctx) => {
+    const res = await client.query('SELECT name FROM toppings WHERE shop_id = $1', [ctx.params.id]);
+    ctx.body = res.rows.map((row) => row.name);
+    // ctx.body = ['Pearl', 'Coconut Jelly', 'Coffee Jelly', 'Pudding', 'Grass Jelly'];
   });
 
 app
