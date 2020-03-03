@@ -25,7 +25,8 @@ router
   .get('/stores/:id/bases', async (ctx) => {
     const res = await client.query('SELECT name FROM bases WHERE shop_id = $1', [ctx.params.id]);
     ctx.body = res.rows.map((row) => row.name);
-    // ctx.body = ['Jasmine Green Milk Tea', 'Two Ladies', 'Three Guys', 'Black Tea'];
+    // console.log(ctx.params.id);
+    ctx.body = ['Jasmine Green Milk Tea', 'Two Ladies', 'Three Guys', 'Black Tea'];
   })
   .get('/stores/:id/toppings', async (ctx) => {
     const res = await client.query('SELECT name FROM toppings WHERE shop_id = $1', [ctx.params.id]);

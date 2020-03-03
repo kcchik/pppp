@@ -18,7 +18,7 @@ function roll() {
   const random = Math.floor(Math.random() * this.items.length);
   this.$emit('set', random);
 
-  this.position = random * 180;
+  this.position = random * this.height;
 
   window.requestAnimationFrame(this.animate);
 }
@@ -32,7 +32,7 @@ function animate(timestamp) {
   const remainingTime = Math.max(this.totalTime - activeTime, 0);
   const power = 2;
   const offset = (remainingTime ** power / this.totalTime ** power) * 2000;
-  const pos = -1 * Math.floor((offset + this.position) % this.height);
+  const pos = -1 * Math.floor((offset + this.position) % (this.items.length * this.height));
 
   this.$refs.wrap.style.transform = `translateY(${pos}px)`;
 
@@ -50,7 +50,7 @@ export default {
     return {
       startTime: null,
       totalTime: 2000,
-      height: this.items.length * 180,
+      height: 180,
       position: null,
     };
   },

@@ -3,7 +3,7 @@ export default {
     let res = await fetch('stores');
     res = await res.json();
     commit('setShops', res);
-    commit('setShop', res[0]);
+    commit('setShop', 0);
   },
   async setBases({ commit, state }) {
     let res = await fetch(`stores/${state.shops.selected}/bases`);

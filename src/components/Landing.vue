@@ -1,7 +1,7 @@
 <template>
   <div>
     <select v-model.number="shop">
-      <option v-for="option in getShops" v-bind:key="option">
+      <option v-for="(option, i) in getShops" :key="i" :value="i">
         {{ option }}
       </option>
     </select>
