@@ -20,24 +20,24 @@ function roll() {
 
   this.position = random * 180;
 
-  window.webkitRequestAnimationFrame(this.animate);
+  window.requestAnimationFrame(this.animate);
 }
 
 function animate(timestamp) {
-  if (this.start === null) {
-    this.start = timestamp;
+  if (this.startTime === null) {
+    this.startTime = timestamp;
   }
 
-  const timeDiff = timestamp - this.start;
-  const timeRemaining = Math.max(this.duration - timeDiff, 0);
+  const activeTime = timestamp - this.startTime;
+  const remainingTime = Math.max(this.totalTime - activeTime, 0);
   const power = 2;
-  const offset = (timeRemaining ** power / this.duration ** power) * 2000;
+  const offset = (remainingTime ** power / this.totalTime ** power) * 2000;
   const pos = -1 * Math.floor((offset + this.position) % this.height);
 
   this.$refs.wrap.style.transform = `translateY(${pos}px)`;
 
-  if (timeDiff <= this.duration) {
-    window.webkitRequestAnimationFrame(this.animate);
+  if (activeTime <= this.totalTime) {
+    window.requestAnimationFrame(this.animate);
   }
 }
 
@@ -48,8 +48,8 @@ export default {
   },
   data() {
     return {
-      start: null,
-      duration: 2000,
+      startTime: null,
+      totalTime: 2000,
       height: this.items.length * 180,
       position: null,
     };
