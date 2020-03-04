@@ -38,6 +38,9 @@ export default {
 
 <style>
 body {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
   font: 400 11px system-ui;
   color: buttontext;
   line-height: 2em;

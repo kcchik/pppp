@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="window" v-on:click="roll()">
-      <div ref="wrap">
-        <div class="item" v-for="opt in items" :key="opt">{{ opt }}</div>
-        <div class="item item-copy" >{{ items[0] }}</div>
-      </div>
+  <div class="container" v-on:click="roll()">
+    <div ref="wrap">
+      <div class="item" v-for="opt in items" :key="opt">{{ opt }}</div>
+      <div class="item item-copy" >{{ items[0] }}</div>
     </div>
   </div>
 </template>
@@ -62,15 +60,13 @@ export default {
 </script>
 
 <style scoped>
-.window {
-  width: 200px;
+.container {
   height: 200px;
   overflow: hidden;
 }
 
 .item {
   height: 180px;
-  width: 200px;
   text-align: center;
   line-height: 180px;
 }
