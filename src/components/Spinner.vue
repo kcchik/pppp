@@ -1,8 +1,13 @@
 <template>
   <div class="spinner-container" v-on:click="roll()">
     <div ref="wrap">
-      <div class="item" v-for="opt in items" :key="opt">{{ opt }}</div>
-      <div class="item" >{{ items[0] }}</div>
+      <div class="item" v-for="opt in items" :key="opt">
+        {{ opt }}
+        <img :src="`${s3}/goku.jpg`" alt="item">
+      </div>
+      <div class="item" >
+        {{ items[0] }}
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +51,7 @@ export default {
   },
   data() {
     return {
+      s3: process.env.VUE_APP_S3_URL,
       startTime: null,
       totalTime: 2000,
       height: 180,
@@ -69,11 +75,18 @@ export default {
 }
 
 .item {
-  width: 100%;
   height: 160px;
   margin-top: 20px;
   padding-left: 20px;
   line-height: 160px;
   background-color: #ddd;
+}
+
+.item img {
+  display: table-cell;
+  width: 50px;
+  height: 50px;
+  margin-top: 110px;
+  float: right;
 }
 </style>

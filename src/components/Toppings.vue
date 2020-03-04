@@ -62,9 +62,6 @@ export default {
 }
 
 button {
-  grid-column: 2;
-  grid-row: 2 / span 2;
-
   height: 50px;
   border-radius: 50%;
   background-color: #ddd;
@@ -72,5 +69,10 @@ button {
 
 button:disabled {
   background-color: #fff;
+}
+
+.button {
+  grid-column: 2;
+  grid-row: 2 / span 2;
 }
 </style>
