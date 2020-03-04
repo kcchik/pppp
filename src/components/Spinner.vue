@@ -1,8 +1,8 @@
 <template>
-  <div class="container" v-on:click="roll()">
+  <div class="spinner-container" v-on:click="roll()">
     <div ref="wrap">
       <div class="item" v-for="opt in items" :key="opt">{{ opt }}</div>
-      <div class="item item-copy" >{{ items[0] }}</div>
+      <div class="item" >{{ items[0] }}</div>
     </div>
   </div>
 </template>
@@ -60,14 +60,20 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.spinner-container {
+  cursor: default;
   height: 200px;
+  padding: 0;
   overflow: hidden;
+  background-color: #eee;
 }
 
 .item {
-  height: 180px;
-  text-align: center;
-  line-height: 180px;
+  width: 100%;
+  height: 160px;
+  margin-top: 20px;
+  padding-left: 20px;
+  line-height: 160px;
+  background-color: #ddd;
 }
 </style>

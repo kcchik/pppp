@@ -1,13 +1,10 @@
 <template>
   <div class="container">
     <h1 class="header">Toppings</h1>
-    <ul class="spinner-list">
-      <li v-for="i in getToppingsCount" :key="i">
-        <Spinner @set="addTopping" :items="getToppings" />
-      </li>
-    </ul>
+    <Spinner class="spinner" @set="addTopping" :items="getToppings" />
+    <Spinner class="spinner" v-if="getToppingsCount > 1" @set="addTopping" :items="getToppings" />
     <button class="button" v-on:click="next"
-      :disabled="getTopping.length < getToppingsCount">Next</button>
+      :disabled="getTopping.length < getToppingsCount" />
   </div>
 </template>
 
@@ -43,27 +40,37 @@ export default {
 <style scoped>
 .container {
   display: grid;
+  align-items: center;
   grid-template-columns: auto 50px;
-  grid-template-rows: 50px auto;
+  grid-template-rows: 50px 200px 200px;
+  gap: 20px 20px;
 }
 
 .header {
-  grid-column-start: 1;
-  grid-column-end: span 2;
-  grid-row-start: 1;
-  grid-row-end: span 1;
+  grid-column: 1 / span 2;
+  grid-row: 1;
 }
 
-.spinner-list {
-  grid-column-start: 1;
-  grid-column-end: span 1;
-  grid-row-start: 2;
-  grid-row-end: span 1;
+.spinner-list:nth-child(0) {
+  grid-column: 1;
+  grid-row: 2;
 }
-.button {
-  grid-column-start: 2;
-  grid-column-end: span 1;
-  grid-row-start: 2;
-  grid-row-end: span 1;
+
+.spinner-list:nth-child(1) {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+button {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+button:disabled {
+  background-color: #fff;
 }
 </style>

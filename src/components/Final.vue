@@ -3,8 +3,8 @@
     <h1>Your Order</h1>
     <p>{{ getBases[getBase] }}</p>
     <ul>
-      <li v-for="i in getTopping" :key="i">
-        <p>{{ getToppings[i] }}</p>
+      <li v-for="(topping, i) in getTopping" :key="i">
+        <p>{{ getToppings[topping] }}</p>
       </li>
     </ul>
     <button v-on:click="reroll">Reroll</button>
