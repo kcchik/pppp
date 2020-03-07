@@ -64,7 +64,7 @@ ul {
 
 .button {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 0.25em 0.5em;
     font: bold 20px 'Sriracha';
     color: #fff;
@@ -76,6 +76,6 @@ ul {
 
 .button:disabled {
     background: #b6e49f;
-    border-bottom: solid 2px #90cd71;
+    border-bottom: solid 2px #b6e49f;
 }
 </style>

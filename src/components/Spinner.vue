@@ -3,11 +3,11 @@
     <div class="spinner-container">
       <div ref="wrap">
         <div class="item" v-for="(opt, i) in items" :key="i">
-          <img :src="`${s3}/bases/${i + 1}.png`" alt="item">
+          <img :src="`${s3}/${type}/${i + 1}.png`" alt="item">
           <span>{{ opt }}</span>
         </div>
         <div class="item" >
-          <img :src="`${s3}/bases/1.png`" alt="item">
+          <img :src="`${s3}/${type}/1.png`" alt="item">
           <span>{{ items[0] }}</span>
         </div>
       </div>
@@ -51,6 +51,7 @@ export default {
   name: 'Base',
   props: {
     items: Array,
+    type: String,
   },
   data() {
     return {

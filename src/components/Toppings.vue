@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <h1 class="header">Toppings</h1>
-    <Spinner class="spinner" @set="addTopping" :items="getToppings" />
-    <Spinner class="spinner" v-if="getToppingsCount > 1" @set="addTopping" :items="getToppings" />
+    <Spinner class="spinner" @set="addTopping" :items="getToppings" type="toppings" />
+    <Spinner class="spinner" v-if="getToppingsCount > 1" @set="addTopping"
+      :items="getToppings" type="toppings" />
     <button class="button" v-on:click="next"
       :disabled="getTopping.length < getToppingsCount">
       Finalize

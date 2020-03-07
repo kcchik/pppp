@@ -10,6 +10,7 @@
         </li>
       </ul>
     </div>
+    <div class="item-cover" />
     <button class="button" v-on:click="reroll">Reroll</button>
     <button class="button" v-on:click="restart">Restart</button>
   </div>
@@ -61,8 +62,17 @@ export default {
     height: 200px;
     box-shadow: inset 300px 0 150px -150px #888;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     overflow: hidden;
+  }
+
+  .item-cover {
+    position: relative;
+    top: -220px;
+    margin-bottom: -200px;
+    height: 200px;
+    box-shadow: inset 0 20px 20px -20px #888, inset 0 -20px 20px -20px #888;
+    border-radius: 10px;
   }
 
   .item p {

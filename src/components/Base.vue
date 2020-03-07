@@ -3,10 +3,10 @@
     <h1 class="header">Base</h1>
     <div :class="selected" />
     <div v-on:click="set(base1)">
-      <Spinner class="spinner" :items="getBases" @set="(base) => base1 = base" />
+      <Spinner class="spinner" :items="getBases" @set="(base) => base1 = base" type="bases" />
     </div>
     <div v-on:click="set(base2)">
-      <Spinner class="spinner" :items="getBases" @set="(base) => base2 = base" />
+      <Spinner class="spinner" :items="getBases" @set="(base) => base2 = base" type="bases" />
     </div>
     <button class="button" v-on:click="next"
       :disabled="getBase === null">
