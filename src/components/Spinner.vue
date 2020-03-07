@@ -1,28 +1,28 @@
 <template>
-  <div class="spinner-container" v-on:click="roll()">
-    <div ref="wrap">
-      <div class="item" v-for="opt in items" :key="opt">
-        {{ opt }}
-        <img :src="`${s3}/goku.jpg`" alt="item">
-      </div>
-      <div class="item" >
-        {{ items[0] }}
+  <div>
+    <div class="spinner-container">
+      <div ref="wrap">
+        <div class="item" v-for="(opt, i) in items" :key="i">
+          <img :src="`${s3}/bases/${i + 1}.png`" alt="item">
+          <span>{{ opt }}</span>
+        </div>
+        <div class="item" >
+          <img :src="`${s3}/bases/1.png`" alt="item">
+          <span>{{ items[0] }}</span>
+        </div>
       </div>
     </div>
+    <div class="spinner-cover" />
   </div>
 </template>
 
 <script>
 function roll() {
-  if (this.position) {
+  if (this.random) {
     return;
   }
 
-  const random = Math.floor(Math.random() * this.items.length);
-  this.$emit('set', random);
-
-  this.position = random * this.height;
-
+  this.random = Math.floor(Math.random() * this.items.length);
   window.requestAnimationFrame(this.animate);
 }
 
@@ -35,12 +35,15 @@ function animate(timestamp) {
   const remainingTime = Math.max(this.totalTime - activeTime, 0);
   const power = 2;
   const offset = (remainingTime ** power / this.totalTime ** power) * 2000;
-  const position = -1 * Math.floor((offset + this.position) % (this.items.length * this.height));
+  const finalPosition = this.random * this.height;
+  const position = -1 * Math.floor((offset + finalPosition) % (this.items.length * this.height));
 
   this.$refs.wrap.style.transform = `translateY(${position}px)`;
 
   if (activeTime <= this.totalTime) {
     window.requestAnimationFrame(this.animate);
+  } else {
+    this.$emit('set', this.random);
   }
 }
 
@@ -51,12 +54,15 @@ export default {
   },
   data() {
     return {
+      random: null,
       s3: process.env.VUE_APP_S3_URL,
       startTime: null,
       totalTime: 2000,
-      height: 180,
-      position: null,
+      height: 200,
     };
+  },
+  mounted() {
+    this.roll();
   },
   methods: {
     roll,
@@ -71,22 +77,35 @@ export default {
   height: 200px;
   padding: 0;
   overflow: hidden;
-  background-color: #eee;
+  border-radius: 10px;
+}
+
+.spinner-cover {
+  position: relative;
+  top: -200px;
+  margin-bottom: -200px;
+  height: 200px;
+  box-shadow: inset 0 20px 20px -20px #888, inset 0 -20px 20px -20px #888;
+  border-radius: 10px;
 }
 
 .item {
-  height: 160px;
-  margin-top: 20px;
-  padding-left: 20px;
-  line-height: 160px;
-  background-color: #ddd;
+  height: 200px;
+  box-shadow: inset 300px 0 150px -150px #888;
+}
+
+.item span {
+  color: white;
+  position: relative;
+  top: -110px;
+  left: 20px;
+  font-size: 20px;
+  text-shadow: 0 0 10px #666;
 }
 
 .item img {
   display: table-cell;
-  width: 50px;
-  height: 50px;
-  margin-top: 110px;
+  height: 200px;
   float: right;
 }
 </style>
