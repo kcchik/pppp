@@ -1,20 +1,58 @@
 <template>
   <div>
-    <h1 class="header">Pee Pee Poo Poo</h1>
+    <h1 class="header">
+      Pee Pee Poo Poo
+    </h1>
+
     <div class="image-container">
-      <img :src="`${s3}/shops/${getShop + 1}.png`" alt="shop">
+      <img
+        :src="`${s3}/shops/${getShop + 1}.png`"
+        alt="shop"
+      >
     </div>
-    <button class="button shop" v-on:click="prevShop">2</button>
-    <button class="button shop" v-on:click="nextShop">1</button>
+
+    <button
+      class="button shop"
+      @click="prevShop"
+    >
+      2
+    </button>
+
+    <button
+      class="button shop"
+      @click="nextShop"
+    >
+      1
+    </button>
+
     <div class="radio-container">
-      <input id="topping1" type="radio" value="1"
-        v-model.number="count" />
-      <label for="topping1">1 Topping</label>
-      <input id="topping2" type="radio" value="2"
-        v-model.number="count" />
-      <label for="topping2">2 Toppings</label>
+      <input
+        id="topping1"
+        type="radio"
+        value="1"
+        v-model.number="count"
+      />
+      <label for="topping1">
+        1 Topping
+      </label>
+
+      <input
+        id="topping2"
+        type="radio"
+        value="2"
+        v-model.number="count"
+      />
+      <label for="topping2">
+        2 Toppings
+      </label>
     </div>
-    <button class="button" v-on:click="start">Start</button>
+
+    <button
+      class="button"
+      @click="start"
+    >
+      Start
+    </button>
   </div>
 </template>
 
@@ -44,7 +82,6 @@ async function start() {
 }
 
 export default {
-  name: 'Landing',
   data() {
     return {
       s3: process.env.VUE_APP_S3_URL,
@@ -85,8 +122,8 @@ export default {
 .image-container {
   height: 300px;
   overflow: hidden;
-  border-radius: 10px;
   margin: 0;
+  border-radius: 10px;
 }
 
 .image-container img {
@@ -96,34 +133,33 @@ export default {
 }
 
 .shop {
+  position: relative;
+  top: -308px;
   width: 50%;
   height: 300px;
-  position: relative;
   margin: 0;
-  top: -308px;
   opacity: 0;
 }
 
 .radio-container {
-  text-align: center;
   margin: -275px 0 28px 0;
+  text-align: center;
 }
 
 input[type="radio"] + label {
   margin: 0 10px;
   padding: 0.25em 0.5em;
-  font: bold 20px 'Sriracha';
-  color: #fff;
-  background: #90cd71;
-  background: #b6e49f;
   border: 0;
   border-bottom: solid 2px #90cd71;
   border-radius: 10px;
+  font: bold 20px 'Sriracha';
+  color: #fff;
+  background: #b6e49f;
 }
 
 input[type="radio"]:checked + label {
-  background: #90cd71;
   border-bottom: solid 2px #b6e49f;
+  background: #90cd71;
 }
 
 input[type="radio"] {

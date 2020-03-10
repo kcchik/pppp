@@ -2,14 +2,21 @@
   <div>
     <div class="spinner-container">
       <div ref="wrap">
-        <div class="item" v-for="(opt, i) in items" :key="i">
-          <img :src="`${s3}/${type}/${i + 1}.png`" alt="item">
-          <span>{{ opt }}</span>
-        </div>
-        <div class="item" >
-          <img :src="`${s3}/${type}/1.png`" alt="item">
-          <span>{{ items[0] }}</span>
-        </div>
+
+        <ItemSpinnerCard
+          v-for="(opt, i) in items"
+          :key="i"
+          :content="opt"
+          :type="type"
+          :name="i"
+        />
+
+        <ItemSpinnerCard
+          :content="items[0]"
+          :type="type"
+          :name="0"
+        />
+
       </div>
     </div>
     <div class="spinner-cover" />
@@ -17,12 +24,9 @@
 </template>
 
 <script>
-function roll() {
-  if (this.random) {
-    return;
-  }
+import ItemSpinnerCard from './ItemSpinnerCard.vue';
 
-  this.random = Math.floor(Math.random() * this.items.length);
+function roll() {
   window.requestAnimationFrame(this.animate);
 }
 
@@ -35,7 +39,7 @@ function animate(timestamp) {
   const remainingTime = Math.max(this.totalTime - activeTime, 0);
   const power = 2;
   const offset = (remainingTime ** power / this.totalTime ** power) * 2000;
-  const finalPosition = this.random * this.height;
+  const finalPosition = this.item * this.height;
   const position = -1 * Math.floor((offset + finalPosition) % (this.items.length * this.height));
 
   this.$refs.wrap.style.transform = `translateY(${position}px)`;
@@ -43,20 +47,21 @@ function animate(timestamp) {
   if (activeTime <= this.totalTime) {
     window.requestAnimationFrame(this.animate);
   } else {
-    this.$emit('set', this.random);
+    this.$emit('done', this.random);
   }
 }
 
 export default {
-  name: 'Base',
+  components: {
+    ItemSpinnerCard,
+  },
   props: {
+    item: Number,
     items: Array,
     type: String,
   },
   data() {
     return {
-      random: null,
-      s3: process.env.VUE_APP_S3_URL,
       startTime: null,
       totalTime: 2000,
       height: 200,
@@ -74,39 +79,19 @@ export default {
 
 <style scoped>
 .spinner-container {
-  cursor: default;
   height: 200px;
-  padding: 0;
   overflow: hidden;
+  padding: 0;
   border-radius: 10px;
+  cursor: default;
 }
 
 .spinner-cover {
   position: relative;
   top: -200px;
+  height: 200px;
   margin-bottom: -200px;
-  height: 200px;
-  box-shadow: inset 0 20px 20px -20px #888, inset 0 -20px 20px -20px #888;
   border-radius: 10px;
-}
-
-.item {
-  height: 200px;
-  box-shadow: inset 300px 0 150px -150px #888;
-}
-
-.item span {
-  color: white;
-  position: relative;
-  top: -110px;
-  left: 20px;
-  font-size: 20px;
-  text-shadow: 0 0 10px #666;
-}
-
-.item img {
-  display: table-cell;
-  height: 200px;
-  float: right;
+  box-shadow: inset 0 20px 20px -20px #888, inset 0 -20px 20px -20px #888;
 }
 </style>

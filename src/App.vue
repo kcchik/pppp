@@ -1,33 +1,35 @@
 <template>
   <div id="app">
-    <component :is="page"  @swap="swap" />
+    <component
+      :is="page"
+      @swap="swap"
+    />
   </div>
 </template>
 
 <script>
-import Landing from './components/Landing.vue';
-import Base from './components/Base.vue';
-import Toppings from './components/Toppings.vue';
-import Final from './components/Final.vue';
+import PageLanding from './components/PageLanding.vue';
+import PageBase from './components/PageBase.vue';
+import PageTopping from './components/PageTopping.vue';
+import PageOrder from './components/PageOrder.vue';
 
 function swap(page) {
   switch (page) {
     case 'base':
-      this.page = Base; break;
-    case 'toppings':
-      this.page = Toppings; break;
-    case 'final':
-      this.page = Final; break;
+      this.page = PageBase; break;
+    case 'topping':
+      this.page = PageTopping; break;
+    case 'order':
+      this.page = PageOrder; break;
     default:
-      this.page = Landing;
+      this.page = PageLanding;
   }
 }
 
 export default {
-  name: 'App',
   data() {
     return {
-      page: Landing,
+      page: PageLanding,
     };
   },
   methods: {

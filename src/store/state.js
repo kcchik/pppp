@@ -1,10 +1,10 @@
 const shops = {
-  selected: null,
+  selected: -1,
   list: [],
 };
 
 const bases = {
-  selected: null,
+  selected: -1,
   list: [],
 };
 
