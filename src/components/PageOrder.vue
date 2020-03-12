@@ -26,17 +26,11 @@
 
     <div class="item-cover" />
 
-    <button
-      class="button"
-      @click="reroll"
-    >
+    <button @click="reroll">
       Reroll
     </button>
 
-    <button
-      class="button"
-      @click="restart"
-    >
+    <button @click="restart">
       Restart
     </button>
   </div>
@@ -104,7 +98,7 @@ export default {
     position: relative;
     top: -145px;
     left: 20px;
-    color: #000;
+    color: #fff;
     text-shadow: 0 0 10px #666;
   }
 

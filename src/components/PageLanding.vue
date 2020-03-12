@@ -4,53 +4,35 @@
       Pee Pee Poo Poo
     </h1>
 
-    <div class="image-container">
+    <div class="shop-image">
       <img
         :src="`${s3}/shops/${getShop + 1}.png`"
         alt="shop"
       >
     </div>
 
-    <button
-      class="button shop"
-      @click="prevShop"
-    >
-      2
-    </button>
-
-    <button
-      class="button shop"
-      @click="nextShop"
-    >
-      1
-    </button>
-
-    <div class="radio-container">
-      <input
-        id="topping1"
-        type="radio"
-        value="1"
-        v-model.number="count"
-      />
-      <label for="topping1">
-        1 Topping
-      </label>
-
-      <input
-        id="topping2"
-        type="radio"
-        value="2"
-        v-model.number="count"
-      />
-      <label for="topping2">
-        2 Toppings
-      </label>
+    <div class="shop-button">
+      <button @click="prevShop" />
+      <button @click="nextShop" />
     </div>
 
-    <button
-      class="button"
-      @click="start"
-    >
+    <div class="toppings">
+      <button
+        :class="buttonClass(1)"
+        @click="count = 1"
+      >
+        1 Topping
+      </button>
+
+      <button
+        :class="buttonClass(2)"
+        @click="count = 2"
+      >
+        2 Toppings
+      </button>
+    </div>
+
+    <button @click="start">
       Start
     </button>
   </div>
@@ -73,6 +55,10 @@ function prevShop() {
     shop = this.getShops.length - 1;
   }
   this.setShop(shop);
+}
+
+function buttonClass(i) {
+  return this.getToppingsCount === i ? '' : 'disabled';
 }
 
 async function start() {
@@ -105,6 +91,7 @@ export default {
   methods: {
     nextShop,
     prevShop,
+    buttonClass,
     start,
     ...mapMutations([
       'setShop',
@@ -119,51 +106,36 @@ export default {
 </script>
 
 <style scoped>
-.image-container {
+.shop-image {
   height: 300px;
   overflow: hidden;
   margin: 0;
   border-radius: 10px;
 }
 
-.image-container img {
+.shop-image img {
   height: 300px;
   margin-left: 50%;
   transform: translateX(-50%);
 }
 
-.shop {
+.shop-button button {
   position: relative;
-  top: -308px;
+  top: -300px;
   width: 50%;
   height: 300px;
-  margin: 0;
   opacity: 0;
 }
 
-.radio-container {
-  margin: -275px 0 28px 0;
-  text-align: center;
+.toppings {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  justify-items: center;
+  margin-top: -300px;
 }
 
-input[type="radio"] + label {
-  margin: 0 10px;
-  padding: 0.25em 0.5em;
-  border: 0;
-  border-bottom: solid 2px #90cd71;
-  border-radius: 10px;
-  font: bold 20px 'Sriracha';
-  color: #fff;
-  background: #b6e49f;
-}
-
-input[type="radio"]:checked + label {
-  border-bottom: solid 2px #b6e49f;
-  background: #90cd71;
-}
-
-input[type="radio"] {
-  position: absolute;
-  opacity: 0;
+.toppings button {
+  width: 70%;
 }
 </style>

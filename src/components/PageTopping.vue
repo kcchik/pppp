@@ -22,7 +22,6 @@
     />
 
     <button
-      class="button"
       @click="next"
       :disabled="done < getToppingsCount"
     >

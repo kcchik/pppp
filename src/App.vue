@@ -64,7 +64,7 @@ ul {
   margin-bottom: 20px;
 }
 
-.button {
+button {
     width: 100%;
     margin-bottom: 20px;
     padding: 0.25em 0.5em;
@@ -76,8 +76,12 @@ ul {
     border-radius: 10px;
 }
 
-.button:disabled {
+button:disabled, .disabled {
     background: #b6e49f;
     border-bottom: solid 2px #b6e49f;
+}
+
+button:focus {
+  outline: 0;
 }
 </style>

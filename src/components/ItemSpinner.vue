@@ -9,6 +9,7 @@
           :content="opt"
           :type="type"
           :name="i"
+          :selected="selected"
         />
 
         <ItemSpinnerCard
@@ -35,13 +36,11 @@ function animate(timestamp) {
     this.timeStart = timestamp;
   }
 
-  const timeActive = timestamp - this.startTime;
+  const timeActive = timestamp - this.timeStart;
   const timeRemaining = Math.max(this.timeTotal - timeActive, 0);
 
-  const power = timeRemaining ** this.power / this.timeTotal ** this.power;
-  const posOffset = power * this.startOffset;
-  const posFinal = posOffset + this.posFinal;
-  const pos = -1 * Math.floor(posFinal % this.heightTotal);
+  const posOffset = (timeRemaining ** this.power / this.timeTotal ** this.power) * this.startOffset;
+  const pos = -1 * Math.floor((posOffset + this.posFinal) % this.heightTotal);
 
   this.$refs.wrap.style.transform = `translateY(${pos}px)`;
 
@@ -60,6 +59,7 @@ export default {
     item: Number,
     items: Array,
     type: String,
+    selected: Boolean,
   },
   data() {
     return {
@@ -71,8 +71,12 @@ export default {
     };
   },
   computed: {
-    heightTotal: this.items.length * this.height,
-    posFinal: this.item * this.height,
+    heightTotal() {
+      return this.items.length * this.height;
+    },
+    posFinal() {
+      return this.item * this.height;
+    },
   },
   mounted() {
     this.roll();

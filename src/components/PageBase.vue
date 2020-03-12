@@ -3,14 +3,14 @@
     <h1 class="header">
       Base
     </h1>
-    <div :class="selected" />
 
     <div @click="clickBase(base1)">
       <ItemSpinner
-        class="spinner"
+        class="spinner wow"
         type="bases"
         :item="base1"
         :items="getBases"
+        :selected="this.base1 === this.getBase"
         @done="spinnerComplete"
       />
     </div>
@@ -21,12 +21,12 @@
         type="bases"
         :item="base2"
         :items="getBases"
+        :selected="this.base2 === this.getBase"
         @done="spinnerComplete"
       />
     </div>
 
     <button
-      class="button"
       :disabled="done < 2"
       @click="next"
     >
@@ -56,7 +56,6 @@ function clickBase(base) {
   if (this.done < 2) {
     return;
   }
-  this.selected = `selected base-${this.base1 === base ? '1' : '2'}`;
   this.setBase(base);
 }
 
@@ -73,7 +72,6 @@ export default {
       base1: 0,
       base2: 0,
       done: 0,
-      selected: '',
     };
   },
   computed: {
@@ -96,21 +94,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.selected {
-  position: relative;
-  height: 200px;
-  margin-top: -200px;
-  border-radius: 10px;
-  background-color: #90cd71;
-}
-
-.base-1 {
-  top: 200px;
-}
-
-.base-2 {
-  top: 420px;
-}
-</style>
