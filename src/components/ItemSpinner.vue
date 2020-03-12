@@ -31,20 +31,21 @@ function roll() {
 }
 
 function animate(timestamp) {
-  if (this.startTime === null) {
-    this.startTime = timestamp;
+  if (this.timeStart === null) {
+    this.timeStart = timestamp;
   }
 
-  const activeTime = timestamp - this.startTime;
-  const remainingTime = Math.max(this.totalTime - activeTime, 0);
-  const power = 2;
-  const offset = (remainingTime ** power / this.totalTime ** power) * 2000;
-  const finalPosition = this.item * this.height;
-  const position = -1 * Math.floor((offset + finalPosition) % (this.items.length * this.height));
+  const timeActive = timestamp - this.startTime;
+  const timeRemaining = Math.max(this.timeTotal - timeActive, 0);
 
-  this.$refs.wrap.style.transform = `translateY(${position}px)`;
+  const power = timeRemaining ** this.power / this.timeTotal ** this.power;
+  const posOffset = power * this.startOffset;
+  const posFinal = posOffset + this.posFinal;
+  const pos = -1 * Math.floor(posFinal % this.heightTotal);
 
-  if (activeTime <= this.totalTime) {
+  this.$refs.wrap.style.transform = `translateY(${pos}px)`;
+
+  if (timeActive <= this.timeTotal) {
     window.requestAnimationFrame(this.animate);
   } else {
     this.$emit('done', this.random);
@@ -62,10 +63,16 @@ export default {
   },
   data() {
     return {
-      startTime: null,
-      totalTime: 2000,
+      timeStart: null,
+      timeTotal: 2000,
+      startOffset: 2000,
+      power: 2,
       height: 200,
     };
+  },
+  computed: {
+    heightTotal: this.items.length * this.height,
+    posFinal: this.item * this.height,
   },
   mounted() {
     this.roll();

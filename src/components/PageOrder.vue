@@ -10,7 +10,7 @@
         alt="item"
       >
       <p class="base">
-        Test Base
+        {{ getBases[getBase] }}
       </p>
       <ul>
         <li
