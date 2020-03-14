@@ -4,7 +4,7 @@
       :src="url"
       alt="item"
     >
-    <span :class="contentClass">
+    <span>
       {{ content }}
     </span>
   </div>
@@ -16,16 +16,11 @@ export default {
     content: String,
     type: String,
     name: Number,
-    selected: Boolean,
-  },
-  data() {
-    return {
-      url: `${process.env.VUE_APP_S3_URL}/${this.type}/${this.name + 1}.png`,
-    };
+    large: Boolean,
   },
   computed: {
-    contentClass() {
-      return this.selected ? 'selected' : '';
+    url() {
+      return `${process.env.VUE_APP_S3_URL}/${this.type}/${this.large ? 'large' : 'small'}/${this.name + 1}.png`;
     },
   },
 };
@@ -50,9 +45,5 @@ span {
   color: #fff;
   font-size: 20px;
   text-shadow: 0 0 10px #666;
-}
-
-.selected {
-  font-size: 30px;
 }
 </style>

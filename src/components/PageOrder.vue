@@ -6,7 +6,7 @@
 
     <div class="item">
       <img
-        :src="`${s3}/bases/${getBase + 1}.png`"
+        :src="`${s3}/bases/large/${getBase + 1}.png`"
         alt="item"
       >
       <p class="base">

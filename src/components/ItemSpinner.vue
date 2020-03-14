@@ -4,11 +4,12 @@
       <div ref="wrap">
 
         <ItemSpinnerCard
-          v-for="(opt, i) in items"
+          v-for="(name, i) in items"
           :key="i"
-          :content="opt"
+          :content="name"
           :type="type"
           :name="i"
+          :large="item === i"
           :selected="selected"
         />
 
@@ -20,7 +21,7 @@
 
       </div>
     </div>
-    <div class="spinner-cover" />
+    <div :class="`spinner-cover ${selectedClass}`" />
   </div>
 </template>
 
@@ -77,6 +78,9 @@ export default {
     posFinal() {
       return this.item * this.height;
     },
+    selectedClass() {
+      return this.selected ? 'selected' : '';
+    },
   },
   mounted() {
     this.roll();
@@ -95,14 +99,20 @@ export default {
   padding: 0;
   border-radius: 10px;
   cursor: default;
+  border: 5px solid transparent;
 }
 
 .spinner-cover {
   position: relative;
-  top: -200px;
+  top: -210px;
   height: 200px;
-  margin-bottom: -200px;
+  margin-bottom: -210px;
   border-radius: 10px;
   box-shadow: inset 0 20px 20px -20px #888, inset 0 -20px 20px -20px #888;
+  border: 5px solid transparent;
+}
+
+.selected {
+  border: 5px solid #90cd71;
 }
 </style>
