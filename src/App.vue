@@ -46,7 +46,6 @@ body {
   margin: 0 auto;
   padding: 0 10px;
   font: 400 11px 'Sriracha', system-ui;
-  color: buttontext;
   line-height: 2em;
 }
 

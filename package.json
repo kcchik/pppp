@@ -1,5 +1,4 @@
 {
-  "name": "peepeepoopoo",
   "scripts": {
     "start": "node index.js",
     "serve": "vue-cli-service serve",
